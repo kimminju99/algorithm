@@ -1,0 +1,15 @@
+# 경우의 수 100,000개도 되지 않으므로 문자열 연산해도 2초 안에 가능
+# 완전 탐색 (100만개 이하일 때 사용)
+
+# 0~23 사이의 정수 입력
+h = int(input())
+
+# 3 포함 되어있으면 count++
+count = 0
+for i in range(h+1):
+  for j in range(60):
+    for k in range(60):
+      if '3' in str(i) + str(j) + str(k):
+        count+=1
+
+print(count)
