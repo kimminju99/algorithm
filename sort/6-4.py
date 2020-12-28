@@ -9,15 +9,15 @@ def quick_sort(array, start, end):
 
   while (left <=right):
     # 피벗보다 큰 데이터를 찾을 때까지 반복
-    while (array[pivot] >= array[left] and left <= end):
+    while (left <= end and array[pivot] >= array[left]):
       left += 1
     # 피벗보다 작은 데이터를 찾을 때까지 반복
-    while (array[pivot] <= array[right] and right > start):
+    while (right > start and array[pivot] <= array[right]):
       right -= 1
     
     # 엇갈렸다면 작은 데이터와 피벗 교체
-    if (left> right):
-      array[pivot], array[right] = array[right], array[pivot]
+    if left> right:
+      array[right], array[pivot] = array[pivot], array[right]
     # 엇갈리지 않았다면 작은 데이터와 큰 데이터 교체
     else:
       array[left], array[right] = array[right], array[left]
