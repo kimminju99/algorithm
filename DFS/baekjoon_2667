@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+void dfs(int c, int r);
+bool isTrue(int c, int r);
+
+int N;
+vector<vector<int>> map;
+vector<vector<int>>visited;
+int dir[4][2] = { {-1,0}, {1,0}, {0,-1}, {0,1} }; // 상 하 좌 우 
+
+int cnt=1;
+vector <int> ans;
+
+int main() {
+	cin >> N;
+	map.resize(N, vector<int>(N));
+	visited.resize(N, vector<int>(N, 0)); // 방문하지 않은 곳 :0, 방문한 곳 1
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			char c;
+			cin >> c;
+			map[i][j] = c-48;
+		}
+	}
+
+	// dfs
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			if (map[i][j] == 1 && !visited[i][j]) {
+				cnt = 0;
+				dfs(i, j);
+				ans.push_back(cnt);
+			}
+		}
+	}
+
+	//printf("\n** 결과 **\n");
+	sort(ans.begin(), ans.end());
+	cout << ans.size() << endl;
+	for (int i = 0; i < ans.size(); i++) {
+		cout << ans[i] << endl;
+	}
+
+	return 0;
+}
+
+void dfs(int c, int r) {
+
+	visited[c][r] = 1;
+	cnt++;
+
+	for (int i = 0; i < 4; i++) {
+		int dx = r + dir[i][1];
+		int dy = c + dir[i][0];
+
+		if (isTrue(dx, dy) && map[dy][dx] == 1 && !visited[dy][dx]) {
+			dfs(dy, dx);
+		}
+	}
+}
+
+bool isTrue(int c, int r) {
+	return c >= 0 && c < N&& r >= 0 && r < N;
+}
